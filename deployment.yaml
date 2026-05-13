@@ -2,45 +2,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-app
+  name: bel-idri-app
   namespace: dev
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: my-app
+      app: bel-idri-app
   template:
     metadata:
       labels:
-        app: my-app
+        app: bel-idri-app
     spec:
       containers:
-      - name: app
-        image: guuts/my-app:v2
+      - name: bel-idri
+        image: wil42/playground:v1
         ports:
         - containerPort: 8888
-        env:
-        - name: APP_NAME
-          value: "My App"
-        - name: POD_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.name
-        - name: NODE_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: spec.nodeName
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-app-service
+  name: bel-idri-service
   namespace: dev
 spec:
   selector:
-    app: my-app
+    app: bel-idri-app
   ports:
     - protocol: TCP
       port: 80
       targetPort: 8888
-  type: ClusterIP
