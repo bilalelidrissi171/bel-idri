@@ -14,10 +14,10 @@ spec:
         app: bel-idri-app
     spec:
       containers:
-      - name: bel-idri
-        image: bilalelidrissi171/bel-idri:v1
-        ports:
-        - containerPort: 8888
+        - name: bel-idri
+          image: bilalelidrissi171/bel-idri:v1
+          ports:
+            - containerPort: 8888
 ---
 apiVersion: v1
 kind: Service
@@ -31,3 +31,21 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 8888
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: bel-idri-ingress
+  namespace: dev
+spec:
+  ingressClassName: traefik
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: bel-idri-service
+                port:
+                  number: 80
