@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: bel-idri
-          image: bilalelidrissi171/bel-idri:v1
+          image: bilalelidrissi171/bel-idri:v2
           ports:
             - containerPort: 8888
 ---
