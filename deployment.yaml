@@ -18,6 +18,17 @@ spec:
           image: bilalelidrissi171/bel-idri:v1
           ports:
             - containerPort: 8888
+      env:
+        - name: APP_NAME
+          value: "app"
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
 ---
 apiVersion: v1
 kind: Service
